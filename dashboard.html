@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phantom Dashboard</title>
+    <style>
+        /* Reset and Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e1e2f, #3c3c59);
+            color: #fff;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background: #28293e;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 10px;
+        }
+
+        .sidebar .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #7f5af0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .sidebar .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sidebar .nav a {
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: #d1d1e9;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar .nav a.active, .sidebar .nav a:hover {
+            background: #7f5af0;
+            color: #fff;
+        }
+
+        .sidebar .user {
+            position: relative;
+            text-align: center;
+            font-size: 14px;
+            color: #d1d1e9;
+        }
+
+        .sidebar .user strong {
+            cursor: pointer;
+        }
+
+        .sidebar .user .dropdown {
+            display: none;
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #3c3c59;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            width: 150px;
+        }
+
+        .sidebar .user .dropdown a {
+            display: block;
+            text-decoration: none;
+            padding: 10px 15px;
+            color: #d1d1e9;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .sidebar .user .dropdown a:hover {
+            background: #7f5af0;
+            color: #fff;
+        }
+
+        .sidebar .user:hover .dropdown {
+            display: block;
+        }
+
+        /* Main Dashboard Content */
+        .main {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .main .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .main .header h1 {
+            font-size: 28px;
+            color: #fff;
+        }
+
+        .main .header button {
+            background: #7f5af0;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .main .header button:hover {
+            background: #5c4ad0;
+        }
+
+        .main .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .main .content .card {
+            background: #3c3c59;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .main .content .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .main .content .card h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .main .content .card p {
+            font-size: 14px;
+            color: #d1d1e9;
+        }
+
+        .main .content .card button {
+            margin-top: 15px;
+            background: #7f5af0;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .main .content .card button:hover {
+            background: #5c4ad0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">Phantom</div>
+        <div class="nav">
+            <a href="#" class="active" onclick="loadContent('dashboard')">📊 Dashboard</a>
+            <a href="#" onclick="loadContent('settings')">⚙️ Settings</a>
+            <a href="#" onclick="loadContent('about')">ℹ️ About</a>
+            <a href="#" onclick="loadContent('support')">🛠️ Support</a>
+        </div>
+        <div class="user">
+            Logged in as: <strong id="username">dev</strong>
+            <div class="dropdown">
+                <a href="#" id="logout">Log Out</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main" id="main-content">
+        <div class="header">
+            <h1>Welcome to the Phantom Dashboard</h1>
+            <button onclick="window.open('https://github.com/BlueDragon7327/Phantom/releases/latest/download/Phantom.html', '_blank')">Download Phantom</button>
+        </div>
+        <div class="content">
+            <div class="card">
+                <h2>Feature 1</h2>
+                <p>Control and manage your app features here.</p>
+                <button>Learn More</button>
+            </div>
+            <div class="card">
+                <h2>Feature 2</h2>
+                <p>Access additional tools and options.</p>
+                <button>Explore</button>
+            </div>
+            <div class="card">
+                <h2>Feature 3</h2>
+                <p>View app insights and analytics.</p>
+                <button>Details</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const contentTemplates = {
+            dashboard: `
+                <div class="header">
+                    <h1>Welcome to the Phantom Dashboard</h1>
+                    <button onclick="window.open('https://github.com/BlueDragon7327/Phantom/releases/latest/download/Phantom.html', '_blank')">Download Phantom</button>
+                </div>
+                <div class="content">
+                    <div class="card">
+                        <h2>Feature 1</h2>
+                        <p>Control and manage your app features here.</p>
+                        <button>Learn More</button>
+                    </div>
+                    <div class="card">
+                        <h2>Feature 2</h2>
+                        <p>Access additional tools and options.</p>
+                        <button>Explore</button>
+                    </div>
+                </div>
+            `,
+            settings: `
+                <div class="header">
+                    <h1>Settings</h1>
+                </div>
+                <div class="content">
+                    <p>Here you can configure your preferences and settings.</p>
+                </div>
+            `,
+            about: `
+                <div class="header">
+                    <h1>About Phantom</h1>
+                </div>
+                <div class="content">
+                    <p>Phantom is the leading solution for secure bypassing.</p>
+                </div>
+            `,
+            support: `
+                <div class="header">
+                    <h1>Support</h1>
+                </div>
+                <div class="content">
+                    <p>Contact us for assistance or troubleshooting.</p>
+                </div>
+            `
+        };
+
+        function loadContent(section) {
+            const mainContent = document.getElementById('main-content');
+            mainContent.innerHTML = contentTemplates[section];
+        }
+
+        // Retrieve username from cookies
+        const username = document.cookie.split('; ').find(row => row.startsWith('username='));
+        if (username) {
+            document.getElementById('username').textContent = username.split('=')[1];
+        } else {
+            window.location.href = "login.html"; // Redirect if not logged in
+        }
+
+        // Logout functionality
+        document.getElementById('logout').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            window.location.href = "login.html";
+        });
+    </script>
+</body>
+</html>
